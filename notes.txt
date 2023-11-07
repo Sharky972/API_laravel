@@ -1,0 +1,86 @@
+
+        Schema::create('champions', function (Blueprint $table) {
+            $table->id();
+            $table->char('avatar');
+            $table->char('name');
+            $table->bigInteger('pv');
+            $table->bigInteger('pvMax');
+            $table->bigInteger('mana');
+            $table->bigInteger('manaMax');
+            $table->bigInteger('isInvincible')->nullable();
+            $table->foreignId("capacities_id")->nullable()->constrained()->nullOnDelete();
+            $table->bigInteger('isDead');
+        });
+    }
+
+
+
+
+
+        Schema::create('costs', function (Blueprint $table) {
+            $table->id()->foreign('Capacities.cost_id');
+            $table->char('name');
+            $table->bigInteger('value');
+            $table->char('faIcon');
+        });
+
+
+
+    Schema::create('capacities', function (Blueprint $table) {
+            $table->id()->foreign('Champions.capacities_id');
+            $table->char('name');
+            $table->bigInteger('color');
+            $table->foreignId("cost_id")->nullable()->constrained()->nullOnDelete();
+            $table->char('type');
+            $table->bigInteger('damage');
+            $table->char('faIcon');
+            $table->char('spellIcon');
+            $table->char('description');
+        });
+    }
+
+	"id": 1,
+	"avatar": "test",
+	"name": "test",
+	"pv": 1,
+	"pvMax": 1,
+	"mana": 1,
+	"manaMax": 1,
+	"isInvincible": 1,
+	"isDead": 1
+
+
+
+Team Builder: Create a feature that allows users to create and manage teams of monsters or heroes, with endpoints to retrieve and update team compositions.
+
+Randomizer: Provide an endpoint that returns random monster or hero suggestions, allowing users to discover new entities easily.
+
+Achievement Tracking: Introduce a feature to track user achievements based on their interactions with monsters, heroes, and their capabilities.
+
+
+
+Certainly! Implementing achievement tracking for your Laravel API involves a few steps. Here's a general overview of the process:
+
+Define Achievements: Start by defining the achievements you want to track in your system. Determine the criteria or conditions that need to be met for each achievement to be unlocked. For example, you might have achievements like "Defeat 100 monsters" or "Reach level 50 with a hero."
+
+Database Setup: Set up a database table to store information about achievements and their progress. At a minimum, this table should include fields such as id, user_id, achievement_id, progress, unlocked, and any other relevant data.
+
+Relationships: Define the relationships between the relevant database tables. For example, you might have a users table, an achievements table, and a pivot table user_achievements to establish a many-to-many relationship between users and achievements.
+
+Create Achievement Models and Migrations: Generate Laravel models and migrations for achievements and user achievements using artisan commands. For example:
+
+Copy code
+
+php artisan make:model Achievement -m
+php artisan make:model UserAchievement -m
+Update Migration Files: In the generated migration files, define the necessary columns and relationships between tables. Add foreign key constraints and any other relevant fields, such as progress, unlocked, or timestamps.
+
+Run Migrations: Run the migrations using the migrate command to create the required tables in your database.
+
+Define Relationships and Scopes: In your models, define the relationships between users, achievements, and user achievements. Utilize Laravel's eloquent relationships and query scopes to retrieve the relevant data efficiently.
+
+Implement Unlocking Logic: Implement the necessary logic to unlock achievements when the required criteria are met. For example, you might increment the progress field for a specific user achievement and check if it reaches the required threshold to mark the achievement as unlocked.
+
+API Endpoints: Create API endpoints to allow users to view their achievements, track their progress, and unlock new achievements. Ensure the necessary authentication and authorization mechanisms are in place to protect access to these endpoints.
+
+Document and Test: Document your API endpoints, including the request and response formats, authentication requirements, and any additional parameters. Write unit tests to ensure the achievement tracking functionality is working as expected.

@@ -33,6 +33,8 @@ Route::post('/auth/login', [UserController::class, 'loginUser']);
 
 Route::apiResource("champions", ChampionController::class);
 
+
+
 //? Les routes "capacities.*" de l'API
 Route::apiResource("capacities", CapacitiesController::class);
 

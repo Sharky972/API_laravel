@@ -15,15 +15,15 @@ return new class extends Migration
 
         Schema::create('capacities', function (Blueprint $table) {
             $table->id();
-            $table->char('name');
-            $table->bigInteger('color');
+            $table->string('name');
+            $table->string('color');
             $table->bigInteger('cost_id')->unsigned();
             $table->foreign('cost_id')->references('id')->on('costs');
-            $table->char('type');
+            $table->string('type');
             $table->bigInteger('damage');
-            $table->char('faIcon');
-            $table->char('spellIcon');
-            $table->char('description');
+            $table->string('faIcon');
+            $table->string('spellIcon');
+            $table->string('description');
             $table->bigInteger('champions_id')->unsigned();
             $table->foreign('champions_id')->references('id')->on('champions');
         });
